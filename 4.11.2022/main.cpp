@@ -11,11 +11,13 @@ short CELL_SIZE;
 
 HWND TurnIs; //Вывод чей ход
 BOOL TurnIsFirstP = true;
+int turn = 0;
 
 BOOL CALLBACK DlgProc(HWND, UINT, WPARAM, LPARAM);
 
 void PrintWhoseTurn();
 bool CheckEndGame(COORD);
+void ClearMap();
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpszCmdLine, int nCmdShow)
 {
@@ -99,32 +101,20 @@ BOOL CALLBACK DlgProc(HWND hWnd, UINT mess, WPARAM wParam, LPARAM lParam)
 			{
 				TCHAR WinerStr[DEFAULT_STR_SIZE] = TEXT("Победитель: ");
 				wcscat_s(WinerStr, TurnIsFirstP ? TEXT("Крестики") : TEXT("Нолики"));
-				if (MessageBox(hWnd, WinerStr, TEXT("Выявлен победитель!"), MB_YESNO) == IDYES)
-				{
-					TurnIsFirstP = false;
-					for (int x = 0; x < MAP_SIZE; ++x)
-						for (int y = 0; y < MAP_SIZE; ++y)
-						{
-							SendMessage(
-								MapMatrix[x][y],
-								STM_SETIMAGE,
-								WPARAM(IMAGE_BITMAP),
-								LPARAM(PIC_V)
-							);
-						}
-				}
 
-				//Выход
-				else
-				{
-					EndDialog(hWnd, NULL);
-					return TRUE;
-				}
+				if (MessageBox(hWnd, WinerStr, TEXT("Выявлен победитель!"), MB_YESNO) == IDYES) ClearMap();
+				else { EndDialog(hWnd, NULL); return TRUE; } //Выход
 			}
-
+			else if (turn >= MAP_SIZE * MAP_SIZE - 1)
+			{
+				if (MessageBox(hWnd, TEXT("Ничья"), TEXT("Победитель не выявлен!"), MB_YESNO) == IDYES) ClearMap();
+				else { EndDialog(hWnd, NULL); return TRUE; } //Выход
+			}
+			
 			//Смена хода
 			TurnIsFirstP = !TurnIsFirstP;
 			PrintWhoseTurn();
+			turn++;
 		}
 	}
 	return TRUE;
@@ -216,4 +206,20 @@ bool CheckEndGame(COORD ClickUp)
 		return true;
 
 	return false;
+}
+
+void ClearMap()
+{
+	turn = -1;
+	TurnIsFirstP = false;
+	for (int x = 0; x < MAP_SIZE; ++x)
+		for (int y = 0; y < MAP_SIZE; ++y)
+		{
+			SendMessage(
+				MapMatrix[x][y],
+				STM_SETIMAGE,
+				WPARAM(IMAGE_BITMAP),
+				LPARAM(PIC_V)
+			);
+		}
 }
