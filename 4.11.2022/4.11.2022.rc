@@ -1,0 +1,137 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "winres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Русский (Россия) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_RUS)
+LANGUAGE LANG_RUSSIAN, SUBLANG_DEFAULT
+#pragma code_page(1251)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""winres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DIALOG DIALOGEX 0, 0, 134, 160
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "X vs O"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         IDB_BITMAP_V,IDC_STATIC1,"Static",SS_BITMAP | WS_BORDER,10,10,50,50
+    CONTROL         IDB_BITMAP_V,IDC_STATIC2,"Static",SS_BITMAP | WS_BORDER,50,10,23,21
+    CONTROL         IDB_BITMAP_V,IDC_STATIC3,"Static",SS_BITMAP | WS_BORDER,90,10,23,21
+    CONTROL         IDB_BITMAP_V,IDC_STATIC4,"Static",SS_BITMAP | WS_BORDER,10,50,23,21
+    CONTROL         IDB_BITMAP_V,IDC_STATIC5,"Static",SS_BITMAP | WS_BORDER,50,50,23,21
+    CONTROL         IDB_BITMAP_V,IDC_STATIC6,"Static",SS_BITMAP | WS_BORDER,90,50,23,21
+    CONTROL         IDB_BITMAP_V,IDC_STATIC7,"Static",SS_BITMAP | WS_BORDER,10,90,23,21
+    CONTROL         IDB_BITMAP_V,IDC_STATIC8,"Static",SS_BITMAP | WS_BORDER,50,90,23,21
+    CONTROL         IDB_BITMAP_V,IDC_STATIC9,"Static",SS_BITMAP | WS_BORDER,90,90,23,21
+    CTEXT           "",IDC_TURNIS2,10,140,114,10
+    CTEXT           "Сейчас ходят:",IDC_TURNIS,10,129,114,11
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 10
+        RIGHTMARGIN, 124
+        VERTGUIDE, 40
+        VERTGUIDE, 50
+        VERTGUIDE, 80
+        VERTGUIDE, 90
+        VERTGUIDE, 120
+        TOPMARGIN, 10
+        BOTTOMMARGIN, 150
+        HORZGUIDE, 40
+        HORZGUIDE, 50
+        HORZGUIDE, 80
+        HORZGUIDE, 90
+        HORZGUIDE, 120
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_DIALOG AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_BITMAP_V            BITMAP                  "bitmap1.bmp"
+
+IDB_BITMAP_X            BITMAP                  "bitmap2.bmp"
+
+IDB_BITMAP_O            BITMAP                  "bitmap3.bmp"
+
+#endif    // Русский (Россия) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
