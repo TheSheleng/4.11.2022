@@ -120,6 +120,22 @@ IDB_BITMAP_X            BITMAP                  "bitmap2.bmp"
 
 IDB_BITMAP_O            BITMAP                  "bitmap3.bmp"
 
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU1 MENU
+BEGIN
+    POPUP "Игра"
+    BEGIN
+        MENUITEM "Сдаться",                     ID_M_END
+        MENUITEM "Рестарт",                     ID_M_REST
+    END
+    MENUITEM "Выход",                       ID_M_EXIT
+END
+
 #endif    // Русский (Россия) resources
 /////////////////////////////////////////////////////////////////////////////
 

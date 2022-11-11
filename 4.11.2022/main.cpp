@@ -26,9 +26,14 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpszCmdLine
 
 BOOL CALLBACK DlgProc(HWND hWnd, UINT mess, WPARAM wParam, LPARAM lParam)
 {
+
 	switch (mess)
 	{
 	case WM_INITDIALOG:
+	{
+		//Прис. меню
+		SetMenu(hWnd, LoadMenu(GetModuleHandle(NULL), MAKEINTRESOURCE(IDR_MENU1)));
+
 		//Картинки инит
 		PIC_V = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP_V));
 		PIC_X = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP_X));
@@ -48,7 +53,7 @@ BOOL CALLBACK DlgProc(HWND hWnd, UINT mess, WPARAM wParam, LPARAM lParam)
 				);
 			}
 
-		TurnIs = GetDlgItem(hWnd, IDC_TURNIS2); 
+		TurnIs = GetDlgItem(hWnd, IDC_TURNIS2);
 
 		//Размер клоточки на основе ширины окна
 		RECT rect;
@@ -56,8 +61,36 @@ BOOL CALLBACK DlgProc(HWND hWnd, UINT mess, WPARAM wParam, LPARAM lParam)
 		CELL_SIZE = rect.right / MAP_SIZE;
 
 		PrintWhoseTurn();
+	}
+	return TRUE;
 
-		return TRUE;
+	case WM_COMMAND:
+	{
+		if (wParam == ID_M_END)
+		{
+			TCHAR WinerStr[DEFAULT_STR_SIZE] = TEXT("Победитель: ");
+			wcscat_s(WinerStr, !TurnIsFirstP ? TEXT("Крестики") : TEXT("Нолики"));
+			wcscat_s(WinerStr, TEXT("\n\nНачать новую партию?"));
+
+			if (MessageBox(hWnd, WinerStr, TEXT("Выявлен победитель!"), MB_YESNO) == IDYES) ClearMap();
+			else { EndDialog(hWnd, NULL); return TRUE; } //Выход
+
+			TurnIsFirstP = !TurnIsFirstP;
+			PrintWhoseTurn();
+			//turn = 0;
+		}
+		else if (wParam == ID_M_REST)
+		{
+			ClearMap();
+			turn = 0;
+		}
+		else if (wParam == ID_M_EXIT)
+		{
+			EndDialog(hWnd, NULL);
+			return TRUE;
+		}
+	}
+	return TRUE;
 
 	case WM_LBUTTONDBLCLK:
 	{
@@ -101,14 +134,17 @@ BOOL CALLBACK DlgProc(HWND hWnd, UINT mess, WPARAM wParam, LPARAM lParam)
 			{
 				TCHAR WinerStr[DEFAULT_STR_SIZE] = TEXT("Победитель: ");
 				wcscat_s(WinerStr, TurnIsFirstP ? TEXT("Крестики") : TEXT("Нолики"));
+				wcscat_s(WinerStr, TEXT("\n\nНачать новую партию?"));
 
 				if (MessageBox(hWnd, WinerStr, TEXT("Выявлен победитель!"), MB_YESNO) == IDYES) ClearMap();
 				else { EndDialog(hWnd, NULL); return TRUE; } //Выход
+				break;
 			}
 			else if (turn >= MAP_SIZE * MAP_SIZE - 1)
 			{
-				if (MessageBox(hWnd, TEXT("Ничья"), TEXT("Победитель не выявлен!"), MB_YESNO) == IDYES) ClearMap();
+				if (MessageBox(hWnd, TEXT("Ничья\n\nНачать новую партию?"), TEXT("Победитель не выявлен!"), MB_YESNO) == IDYES) ClearMap();
 				else { EndDialog(hWnd, NULL); return TRUE; } //Выход
+				break;
 			}
 			
 			//Смена хода
@@ -210,8 +246,9 @@ bool CheckEndGame(COORD ClickUp)
 
 void ClearMap()
 {
-	turn = -1;
-	TurnIsFirstP = false;
+	turn = 0;
+	TurnIsFirstP = true;
+	PrintWhoseTurn();
 	for (int x = 0; x < MAP_SIZE; ++x)
 		for (int y = 0; y < MAP_SIZE; ++y)
 		{
